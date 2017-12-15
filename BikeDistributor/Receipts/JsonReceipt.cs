@@ -11,6 +11,7 @@ namespace BikeDistributor.Receipts
     {
         public JsonReceipt(Order order) : base(order) { }
 
+        //this is unique from the other receipt formats in that it overrides the main method and uses a serializer
         public override string GenerateReceipt(IList<Line> lines, string company, double taxRate)
         {
             var subtotal = _subtotal = lines.Sum(l => l.PriceOfLineWithDiscounts());
@@ -20,7 +21,7 @@ namespace BikeDistributor.Receipts
                 Description = $"Order Receipt for {_order.Company}",
                 Lines = lines.Select(l => new
                 {
-                    Description = $"{l.Quantity} x {l.Bike.Brand} {l.Bike.Model}",
+                    Description = l.Description,
                     Price = l.PriceOfLineWithDiscounts()
                 }),
                 Subtotal = subtotal,

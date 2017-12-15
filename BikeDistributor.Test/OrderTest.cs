@@ -1,5 +1,6 @@
 ﻿using BikeDistributor.Receipts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace BikeDistributor.Test
 {
@@ -7,6 +8,7 @@ namespace BikeDistributor.Test
     public class OrderTest
     {
         private readonly static Bike Defy = new Bike("Giant", "Defy 1", Bike.OneThousand);
+        private readonly static Bike UpgradedDefy = new Bike("Giant", "Defy 1", Bike.OneThousand, new List<Addon>() { Addons.AeroWheels });
         private readonly static Bike Elite = new Bike("Specialized", "Venge Elite", Bike.TwoThousand);
         private readonly static Bike DuraAce = new Bike("Specialized", "S-Works Venge Dura-Ace", Bike.FiveThousand);
 
@@ -23,6 +25,20 @@ namespace BikeDistributor.Test
 Sub-Total: $1,000.00
 Tax: $72.50
 Total: $1,072.50";
+
+        [TestMethod]
+        public void ReceiptOneUpgradedDefy()
+        {
+            var order = new Order("Anywhere Bike Shop");
+            order.AddLine(new Line(UpgradedDefy, 1));
+            Assert.AreEqual(ResultStatementOneUpgradedDefy, order.Receipt(ReceiptType.PlainText));
+        }
+
+        private const string ResultStatementOneUpgradedDefy = @"Order Receipt for Anywhere Bike Shop
+	1 x Upgraded Giant Defy 1 = $1,100.00
+Sub-Total: $1,100.00
+Tax: $79.75
+Total: $1,179.75";
 
         [TestMethod]
         public void ReceiptOneElite()

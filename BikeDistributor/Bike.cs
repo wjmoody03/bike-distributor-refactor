@@ -9,12 +9,19 @@ namespace BikeDistributor
         public const int TwoThousand = 2000;
         public const int FiveThousand = 5000;
 
-        public Bike(string brand, string model, int basePrice)
+        public Bike(string brand, string model, int basePrice, IList<Addon> addons = null)
         {
             Brand = brand;
             Model = model;
             BasePrice = basePrice;
-            Addons = new List<Addon>();
+            if (addons == null)
+            {
+                Addons = new List<Addon>();
+            }
+            else
+            {
+                Addons = addons;
+            }
         }
 
         public string Brand { get; private set; }

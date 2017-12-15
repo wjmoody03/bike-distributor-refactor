@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace BikeDistributor
 {
@@ -12,6 +13,14 @@ namespace BikeDistributor
 
         public Bike Bike { get; private set; }
         public int Quantity { get; private set; }
+
+        public string Description
+        {
+            get
+            {
+                return $"{Quantity} x {(Bike.Addons.Any() ? "Upgraded " : String.Empty)}{Bike.Brand} {Bike.Model}";
+            }
+        }
 
         public double PriceOfLineWithDiscounts()
         {            

@@ -23,7 +23,7 @@ namespace BikeDistributor.Receipts
 
         protected override string WriteLine(Line line)
         {
-            return $"<li>{line.Quantity} x {line.Bike.Brand} {line.Bike.Model} = {line.PriceOfLineWithDiscounts().ToString("C")}</li>";
+            return $"<li>{line.Description} = {line.PriceOfLineWithDiscounts().ToString("C")}</li>";
         }
         protected override void WriteFooter()
         {

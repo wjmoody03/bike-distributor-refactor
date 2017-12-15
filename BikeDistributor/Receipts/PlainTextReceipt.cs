@@ -17,7 +17,7 @@ namespace BikeDistributor.Receipts
 
         protected override string WriteLine(Line line)
         {
-            return $"\t{line.Quantity} x {line.Bike.Brand} {line.Bike.Model} = {line.PriceOfLineWithDiscounts().ToString("C")}{Environment.NewLine}";
+            return $"\t{line.Description} = {line.PriceOfLineWithDiscounts().ToString("C")}{Environment.NewLine}";
         }
         protected override void WriteFooter()
         {
