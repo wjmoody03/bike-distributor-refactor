@@ -82,7 +82,18 @@ Total: $5,362.50";
 
         private const string HtmlResultStatementOneDuraAce = @"<html><body><h1>Order Receipt for Anywhere Bike Shop</h1><ul><li>1 x Specialized S-Works Venge Dura-Ace = $5,000.00</li></ul><h3>Sub-Total: $5,000.00</h3><h3>Tax: $362.50</h3><h2>Total: $5,362.50</h2></body></html>";
 
-        
+
+        [TestMethod]
+        public void JSONReceiptOneDuraAce()
+        {
+            var order = new Order("Anywhere Bike Shop");
+            order.AddLine(new Line(DuraAce, 1));
+            Assert.AreEqual(JSONResultStatementOneDuraAce, order.Receipt(ReceiptType.JSON));
+        }
+
+        private const string JSONResultStatementOneDuraAce = @"{'Description':'Order Receipt for Anywhere Bike Shop','Lines':[{'Description':'1 x Specialized S-Works Venge Dura-Ace','Price':5000}],'Sub-Total':5000,'Tax':362.5,Total:5362.5}";
+
+
     }
 
 }

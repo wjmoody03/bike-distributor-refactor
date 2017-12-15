@@ -45,6 +45,7 @@
     <Compile Include="Bike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="Receipts\JsonReceipt.cs" />
     <Compile Include="Receipts\HtmlReceipt.cs" />
     <Compile Include="Receipts\PlainTextReceipt.cs" />
     <Compile Include="Receipts\ReceiptBase.cs" />

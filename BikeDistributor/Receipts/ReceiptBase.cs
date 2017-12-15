@@ -28,6 +28,8 @@ namespace BikeDistributor.Receipts
                     return new PlainTextReceipt(order);
                 case ReceiptType.Html:
                     return new HtmlReceipt(order);
+                case ReceiptType.JSON:
+                    return new JsonReceipt(order);
                 default:
                     throw new NotImplementedException("The receipt type you tried to generate is not currently supported by BikeDistributor.");
             }
