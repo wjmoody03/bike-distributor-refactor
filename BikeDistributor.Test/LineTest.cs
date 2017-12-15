@@ -20,42 +20,42 @@ namespace BikeDistributor.Test
         {
             var line = new Line(Defy, 20);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(Defy.Price * line.Quantity * .9, lineAmount);
+            Assert.AreEqual(Defy.PriceWithAddons * line.Quantity * .9, lineAmount);
         }
         [TestMethod]
         public void TotalPriceOfLineWithOneThousandDollarBikeAndQuantityLessThan20()
         {
             var line = new Line(Defy, 19);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(Defy.Price * line.Quantity, lineAmount);
+            Assert.AreEqual(Defy.PriceWithAddons * line.Quantity, lineAmount);
         }
         [TestMethod]
         public void TotalPriceOfLineWithTwoThousandDollarBikeAndQuantityOver9()
         {
             var line = new Line(Elite, 10);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(Elite.Price * line.Quantity * .8, lineAmount);
+            Assert.AreEqual(Elite.PriceWithAddons * line.Quantity * .8, lineAmount);
         }
         [TestMethod]
         public void TotalPriceOfLineWithTwoThousandDollarBikeAndQuantityLessThan10()
         {
             var line = new Line(Elite, 9);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(Elite.Price * line.Quantity, lineAmount);
+            Assert.AreEqual(Elite.PriceWithAddons * line.Quantity, lineAmount);
         }
         [TestMethod]
         public void TotalPriceOfLineWithFiveThousandDollarBikeAndQuantityOver4()
         {
             var line = new Line(DuraAce, 5);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(DuraAce.Price * line.Quantity * .8, lineAmount);
+            Assert.AreEqual(DuraAce.PriceWithAddons * line.Quantity * .8, lineAmount);
         }
         [TestMethod]
         public void TotalPriceOfLineWithFiveThousandDollarBikeAndQuantityLessThan5()
         {
             var line = new Line(DuraAce, 4);
             var lineAmount = line.PriceOfLineWithDiscounts();
-            Assert.AreEqual(DuraAce.Price * line.Quantity, lineAmount);
+            Assert.AreEqual(DuraAce.PriceWithAddons * line.Quantity, lineAmount);
         }
         [TestMethod]
         public void MultiplePossibleDiscountsChoosesOnlyBestForCustomer()
@@ -64,7 +64,7 @@ namespace BikeDistributor.Test
             var lineAmount = line.PriceOfLineWithDiscounts();
             //make sure we got the 20% discount for 5k bikes, not the 10% discount for 1k bikes
             //this will also test that only one discount was applied.
-            Assert.AreEqual(DuraAce.Price * line.Quantity * .8, lineAmount);
+            Assert.AreEqual(DuraAce.PriceWithAddons * line.Quantity * .8, lineAmount);
         }
     }
 }

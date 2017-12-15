@@ -21,13 +21,13 @@ namespace BikeDistributor
             var currentDiscounts = Discount.AllCurrentDiscounts().OrderByDescending(d => d.DiscountAmount);
             foreach (var discount in Discount.AllCurrentDiscounts().OrderByDescending(d => d.DiscountAmount))
             {
-                if (this.Bike.Price >= discount.MinimumBikePrice && this.Quantity >= discount.MinimumQuantity)
+                if (this.Bike.PriceWithAddons >= discount.MinimumBikePrice && this.Quantity >= discount.MinimumQuantity)
                 {
-                    return this.Quantity * this.Bike.Price * (1d - discount.DiscountAmount);
+                    return this.Quantity * this.Bike.PriceWithAddons * (1d - discount.DiscountAmount);
                 }
             }
 
-            return this.Quantity * this.Bike.Price; //line isn't eligible for any discounts
+            return this.Quantity * this.Bike.PriceWithAddons; //line isn't eligible for any discounts
 
         }
     }
