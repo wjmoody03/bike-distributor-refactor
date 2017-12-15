@@ -30,6 +30,8 @@ namespace BikeDistributor.Receipts
                     return new HtmlReceipt(order);
                 case ReceiptType.JSON:
                     return new JsonReceipt(order);
+                case ReceiptType.XML:
+                    return new XMLReceipt(order);
                 default:
                     throw new NotImplementedException("The receipt type you tried to generate is not currently supported by BikeDistributor.");
             }
@@ -53,9 +55,9 @@ namespace BikeDistributor.Receipts
         protected Order _order;
         protected double _subtotal; //available to header/body/footer methods after calling GenerateReceipt
         protected StringBuilder _receiptContents = new StringBuilder();
-        
+
         //virtual methods allow for descendant classes to only override the necessary methods
-        protected abstract void WriteHeader();
+        protected virtual void WriteHeader() { }
 
         protected virtual void WriteLines(IList<Line> lines)
         {
@@ -65,9 +67,12 @@ namespace BikeDistributor.Receipts
             }
         }
 
-        protected abstract string WriteLine(Line line);
+        protected virtual string WriteLine(Line line)
+        {
+            throw new NotImplementedException("If used, the WriteLine method should overridden");
+        }
 
-        protected abstract void WriteFooter();
+        protected virtual void WriteFooter() { }
 
         public virtual string GenerateReceipt(IList<Line> lines, string company, double taxRate)
         {
