@@ -79,8 +79,52 @@ Total: $5,362.50";
             Assert.AreEqual(HtmlResultStatementOneDuraAce, order.HtmlReceipt());
         }
 
-        private const string HtmlResultStatementOneDuraAce = @"<html><body><h1>Order Receipt for Anywhere Bike Shop</h1><ul><li>1 x Specialized S-Works Venge Dura-Ace = $5,000.00</li></ul><h3>Sub-Total: $5,000.00</h3><h3>Tax: $362.50</h3><h2>Total: $5,362.50</h2></body></html>";    
+        private const string HtmlResultStatementOneDuraAce = @"<html><body><h1>Order Receipt for Anywhere Bike Shop</h1><ul><li>1 x Specialized S-Works Venge Dura-Ace = $5,000.00</li></ul><h3>Sub-Total: $5,000.00</h3><h3>Tax: $362.50</h3><h2>Total: $5,362.50</h2></body></html>";
+
+        [TestMethod]
+        public void TotalPriceOfLineWithOneThousandDollarBikeAndQuantityOver19()
+        {
+            var line = new Line(Defy, 20);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(Defy.Price * line.Quantity * .9, lineAmount);
+        }
+        [TestMethod]
+        public void TotalPriceOfLineWithOneThousandDollarBikeAndQuantityLessThan20()
+        {
+            var line = new Line(Defy, 19);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(Defy.Price * line.Quantity, lineAmount);
+        }
+        [TestMethod]
+        public void TotalPriceOfLineWithTwoThousandDollarBikeAndQuantityOver9()
+        {
+            var line = new Line(Elite, 10);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(Elite.Price * line.Quantity * .8, lineAmount);
+        }
+        [TestMethod]
+        public void TotalPriceOfLineWithTwoThousandDollarBikeAndQuantityLessThan10()
+        {
+            var line = new Line(Elite, 9);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(Elite.Price * line.Quantity, lineAmount);
+        }
+        [TestMethod]
+        public void TotalPriceOfLineWithFiveThousandDollarBikeAndQuantityOver4()
+        {
+            var line = new Line(DuraAce, 5);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(DuraAce.Price * line.Quantity * .8, lineAmount);
+        }
+        [TestMethod]
+        public void TotalPriceOfLineWithFiveThousandDollarBikeAndQuantityLessThan5()
+        {
+            var line = new Line(DuraAce, 4);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            Assert.AreEqual(DuraAce.Price * line.Quantity, lineAmount);
+        }
     }
+
 }
 
 
