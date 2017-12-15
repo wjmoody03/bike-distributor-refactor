@@ -64,29 +64,21 @@ namespace BikeDistributor
 
         public static double PriceOfLineWithDiscounts(Line line)
         {
-            var thisAmount = 0d;
-            switch (line.Bike.Price)
+
+            //see if this line qualifies for any of our current discounts. 
+            //we want a max of one discount to apply
+            //also, ordering the discounts allows us to apply the biggest discount for which the customer is eligible
+            var currentDiscounts = Discount.AllCurrentDiscounts().OrderByDescending(d => d.DiscountAmount);
+            foreach (var discount in Discount.AllCurrentDiscounts().OrderByDescending(d => d.DiscountAmount))
             {
-                case Bike.OneThousand:
-                    if (line.Quantity >= 20)
-                        thisAmount += line.Quantity * line.Bike.Price * .9d;
-                    else
-                        thisAmount += line.Quantity * line.Bike.Price;
-                    break;
-                case Bike.TwoThousand:
-                    if (line.Quantity >= 10)
-                        thisAmount += line.Quantity * line.Bike.Price * .8d;
-                    else
-                        thisAmount += line.Quantity * line.Bike.Price;
-                    break;
-                case Bike.FiveThousand:
-                    if (line.Quantity >= 5)
-                        thisAmount += line.Quantity * line.Bike.Price * .8d;
-                    else
-                        thisAmount += line.Quantity * line.Bike.Price;
-                    break;
+                if(line.Bike.Price>=discount.MinimumBikePrice && line.Quantity >= discount.MinimumQuantity)
+                {
+                    return line.Quantity * line.Bike.Price * (1d-discount.DiscountAmount);
+                }
             }
-            return thisAmount;
+
+            return line.Quantity * line.Bike.Price; //line isn't eligible for any discounts
+            
         }
 
     }
