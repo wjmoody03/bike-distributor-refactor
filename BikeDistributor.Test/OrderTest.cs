@@ -123,6 +123,15 @@ Total: $5,362.50";
             var lineAmount = Order.PriceOfLineWithDiscounts(line);
             Assert.AreEqual(DuraAce.Price * line.Quantity, lineAmount);
         }
+        [TestMethod]
+        public void MultiplePossibleDiscountsChoosesOnlyBestForCustomer()
+        {
+            var line = new Line(DuraAce, 21);
+            var lineAmount = Order.PriceOfLineWithDiscounts(line);
+            //make sure we got the 20% discount for 5k bikes, not the 10% discount for 1k bikes
+            //this will also test that only one discount was applied.
+            Assert.AreEqual(DuraAce.Price * line.Quantity * .8, lineAmount);
+        }
     }
 
 }
