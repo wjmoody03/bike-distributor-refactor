@@ -1,0 +1,32 @@
+All three of the suggested enhancements have been addressed to some degree: 
+
+Additional Discounts
+	I created class to store the configuration of a discount instead of duplicate if/then/else statements. 
+	The logic for calculating the discount was relocated such that it can be shared by all consumers. 
+	Potential further enhancements: Support different kinds of discounts beyond just minimum price/quantity. 
+	For example, custom discount codes or ones where multiple additive conditions must be met to qualify.
+	Also, this code could be further optimized by only calculating the discount once and cacheing it. As it is the code
+	may be called multiple times within the generation of a receipt. 
+	I left it as is for now because the code is much clearer this way and the current impact is small. 
+	
+Additional Receipt Formats
+	In order to keep this exercise contained, I have made the unrealistic assumption that all receipt formats will render to strings. 
+	I then created an enumerator to store the supported formats, and a base class that implements the shared methods across format. 
+	Individual format classes can inherit from the base class and only override the necessary methods. (Note that the JSON receipt is unique)
+	I used the factory pattern with a switch statement to create the appropriate concrete class. 
+	The switch statement could be replaced with a more elegant use of attribute reflection and an activator call. This would
+	eliminate the need for remembering to update the factory class when new formats are supported, but this approach is frequently 
+	confusing to junior devs and is overkill for such a limited codebase.
+	
+Bike enhancements
+	It's common for riders to want certain components added to a base package, so I created the ability for a bike order
+	to be made with certain Addons. The price of each addon is then added to the base price, and the receipt creates 
+	a slightly different description if the bike has been upgraded. 
+	
+
+General notes: 
+	-string interpolation used instead of string.Format where possible
+	-New test cases added for all additional or modified functionality
+	-Added git repo to track changes/branches
+	
+	
